@@ -1,0 +1,42 @@
+---
+import Base from "../layouts/Base.astro";
+import LiveEditor from "../components/LiveEditor.astro";
+
+const html = `<div class="flex items-center gap-4 p-8">
+  <button class="rounded-md bg-brand-500 px-4 py-2 text-white">Bouton de marque</button>
+  <span class="text-brand-500 font-bold">Texte de marque</span>
+  <span class="border-2 border-brand-500 px-3 py-1">Bordure</span>
+</div>
+`;
+const css = `@import "tailwindcss";
+
+@theme {
+  --color-brand-500: oklch(0.6 0.2 300);
+}
+`;
+---
+<Base title="Personnaliser avec @theme">
+  <h1>Personnaliser Tailwind se fait en CSS avec @theme</h1>
+  <p class="lead">Là où Bootstrap se personnalisait par des variables Sass, Tailwind v4 se personnalise directement dans le CSS.</p>
+
+  <h2>Un token génère ses utilitaires</h2>
+  <p>Un <em>token</em> est une valeur nommée du design system (une couleur, un espacement, une police). Le bloc <code>@theme</code>, placé après <code>@import "tailwindcss"</code>, crée la variable CSS <code>--color-brand-500</code> <em>et</em> les classes <code>bg-brand-500</code>, <code>text-brand-500</code>, <code>border-brand-500</code>. Rien d'autre à faire. Change la couleur dans le CSS, puis renomme le token en <code>--color-marque-500</code> et mets à jour le HTML.</p>
+  <LiveEditor initial={html} css={css} height={170} />
+
+  <h2>Le préfixe décide de ce qui est généré</h2>
+  <ul>
+    <li><code>--color-*</code> génère <code>bg-*</code>, <code>text-*</code>, <code>border-*</code>, <code>fill-*</code></li>
+    <li><code>--spacing</code> génère <code>p-*</code>, <code>m-*</code>, <code>gap-*</code>, <code>w-*</code></li>
+    <li><code>--font-*</code> génère <code>font-*</code></li>
+    <li><code>--breakpoint-*</code> génère les variantes <code>sm:</code>, <code>md:</code>, <code>lg:</code></li>
+  </ul>
+
+  <h2>Étendre, surcharger, remplacer</h2>
+  <p>Étendre : on ajoute un token, le reste est conservé. Surcharger : on redéfinit un token existant, par exemple <code>--breakpoint-sm: 30rem</code>. Remplacer : <code>--color-*: initial</code> efface toute la palette par défaut, et on ne remet que les couleurs voulues, utile pour un design system strict.</p>
+
+  <h2>Les valeurs entre crochets : l'échappatoire</h2>
+  <p>Pour un besoin ponctuel hors échelle : <code>top-[117px]</code>, <code>bg-[#316ff6]</code>. C'est prévu et pratique, mais si on en met partout, on perd la cohérence que le design system garantit. Si une valeur revient souvent, elle doit devenir un token.</p>
+
+  <h2>Choisir son outil</h2>
+  <p>Tailwind : design sur mesure, équipe qui maîtrise le CSS, design system à faire vivre, projet avec framework front. Bootstrap : délai très court, pas de graphiste, outil interne où l'identité compte peu. CSS pur : très petit site, aucune tolérance à une étape de compilation.</p>
+</Base>

@@ -1,0 +1,44 @@
+---
+import Base from "../layouts/Base.astro";
+import LiveEditor from "../components/LiveEditor.astro";
+
+const dyn = `<div id="boite" class="m-4 p-6 text-white"></div>
+<script>
+  // nom de classe assemblé : « bg- » + couleur + « -500 »
+  const couleur = "red";
+  document.getElementById("boite").className += " bg-" + couleur + "-500";
+</script>
+`;
+---
+<Base title="Brancher Tailwind">
+  <h1>Brancher Tailwind et comprendre sa compilation</h1>
+  <p class="lead">Contrairement à Bootstrap, on ne charge pas Tailwind par un simple lien : une étape de compilation lit votre code.</p>
+
+  <h2>Trois méthodes pour Tailwind v4</h2>
+  <ul>
+    <li><strong>Le plugin Vite</strong> : la voie recommandée pour un projet React, Vue ou Svelte.</li>
+    <li><strong>L'outil en ligne de commande</strong> : pour un projet sans outil d'assemblage, il surveille le CSS et le recompile.</li>
+    <li><strong>Le plugin PostCSS</strong> : quand le projet a déjà une chaîne de traitement du CSS.</li>
+  </ul>
+  <p>Il existe aussi un script navigateur pour prototyper sans rien installer : c'est celui qui fait tourner les aperçus de ce site. Il ne se met jamais en production.</p>
+
+  <h2>Le plugin Vite en trois gestes</h2>
+  <pre><code>npm install tailwindcss @tailwindcss/vite</code></pre>
+  <pre><code>// vite.config.js
+import tailwindcss from "@tailwindcss/vite";
+export default &#123; plugins: [tailwindcss()] &#125;;</code></pre>
+  <pre><code>/* style.css */
+@import "tailwindcss";</code></pre>
+  <p>Cette seule ligne d'import remplace, en v4, les trois directives <code>@tailwind</code> et le fichier de configuration JavaScript de la v3. Repère rapide : trois lignes <code>@tailwind</code> en tête du CSS = projet v3 ; un seul <code>@import</code> = projet v4.</p>
+
+  <h2>Ce que fait la compilation</h2>
+  <p>Le <em>build</em> (l'étape de compilation) lit tous les fichiers du projet, relève chaque nom de classe écrit <strong>en entier</strong>, et ne génère que le CSS correspondant. Une classe jamais écrite n'existe pas dans le CSS final.</p>
+  <p>Le piège : un nom de classe construit par morceaux, comme <code>`bg-$&#123;couleur&#125;-500`</code>, n'apparaît nulle part en entier. Le build ne le voit pas, le CSS n'est jamais généré, la couleur ne s'affiche pas. On écrit les classes en entier, ou on associe chaque valeur à une classe complète.</p>
+  <p><strong>Attention à cet aperçu :</strong> le script navigateur observe la page vivante, donc il génère aussi les classes assemblées au moment de l'exécution. Ce n'est <em>pas</em> le comportement d'un vrai build.</p>
+  <LiveEditor initial={dyn} label="Dans cet aperçu, la classe assemblée fonctionne. Dans un vrai projet, non." height={160} />
+</Base>
+
+<style>
+  pre { background: var(--code-bg); color: var(--code-ink); padding: 16px; border-radius: 12px; overflow-x: auto; }
+  pre code { background: none; color: inherit; font-size: 15px; }
+</style>

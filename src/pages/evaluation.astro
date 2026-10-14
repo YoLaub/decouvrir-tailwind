@@ -1,0 +1,44 @@
+---
+import Base from "../layouts/Base.astro";
+import LiveEditor from "../components/LiveEditor.astro";
+
+const start = `<div class="p-4">
+  <div class="rounded bg-cyan-100 p-4">1</div>
+  <div class="rounded bg-cyan-100 p-4">2</div>
+  <div class="rounded bg-cyan-100 p-4">3</div>
+</div>
+`;
+---
+<Base title="Teste tes acquis">
+  <h1>Teste tes acquis</h1>
+  <p class="lead">Quatre questions, une par compétence. Ce n'est pas noté : c'est pour toi. Essaie d'abord, ouvre la correction ensuite.</p>
+
+  <h2>1. Brancher et comprendre la compilation</h2>
+  <p>Dans un projet Tailwind v4, <code>&lt;div className=&#123;`bg-$&#123;couleur&#125;-500`&#125;&gt;</code> n'affiche aucune couleur. Pourquoi, et comment corriges-tu ?</p>
+  <details>
+    <summary>Ce qui valide la réponse</summary>
+    <p>Le build cherche des noms de classes écrits en entier dans le code ; un nom assemblé par morceaux n'apparaît nulle part, donc le CSS n'est pas généré. Correction : écrire les classes en entier, ou une table qui associe chaque valeur à une classe complète.</p>
+  </details>
+
+  <h2>2. Composer une interface responsive</h2>
+  <p>Modifie les classes : trois blocs empilés sur mobile, côte à côte à partir de <code>md</code>, avec un écart de 1 rem entre eux.</p>
+  <LiveEditor initial={start} widths height={300} />
+  <details>
+    <summary>Ce qui valide la réponse</summary>
+    <p>Un conteneur flex ou grid avec un préfixe <code>md:</code> pour passer en ligne ou en trois colonnes, et <code>gap-4</code> (4 × 0,25 rem = 1 rem). Il y a plusieurs écritures correctes.</p>
+  </details>
+
+  <h2>3. Gérer la répétition</h2>
+  <p>Ta page contient six cartes identiques de douze classes chacune. Comment les produis-tu sans dupliquer, et combien d'endroits modifier si la couleur change ?</p>
+  <details>
+    <summary>Ce qui valide la réponse</summary>
+    <p>Une boucle ou un composant du langage du projet : un seul endroit à modifier. Dire pourquoi <code>@apply</code> n'est pas le choix par défaut est un plus.</p>
+  </details>
+
+  <h2>4. Personnaliser et choisir</h2>
+  <p>Comment rends-tu une couleur de marque utilisable en <code>bg-brand-500</code> ? Pour un tableau de bord interne à livrer en quatre jours, sans maquette ni graphiste, choisirais-tu Tailwind, Bootstrap ou du CSS pur ? Pourquoi ?</p>
+  <details>
+    <summary>Ce qui valide la réponse</summary>
+    <p>Un token <code>--color-brand-500</code> dans un bloc <code>@theme</code>, après <code>@import "tailwindcss"</code>. Pour le tableau de bord, Bootstrap se défend (délai court, pas de design sur mesure, composants prêts) ; la justification compte plus que le mot.</p>
+  </details>
+</Base>

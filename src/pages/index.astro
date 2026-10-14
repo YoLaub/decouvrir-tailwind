@@ -1,0 +1,12 @@
+---
+import Base from "../layouts/Base.astro";
+import { pages } from "../lib/pages";
+const base = import.meta.env.BASE_URL;
+---
+<Base title="Accueil">
+  <h1>Découvrir Tailwind CSS v4</h1>
+  <p class="lead">Le détail du cours, avec un éditeur pour tester en direct. Tailwind est chargé dans chaque aperçu : tu n'as rien à installer.</p>
+  <ol>
+    {pages.map((p) => <li><a href={`${base}${p.slug}`}>{p.title}</a></li>)}
+  </ol>
+</Base>

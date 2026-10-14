@@ -1,0 +1,41 @@
+---
+import Base from "../layouts/Base.astro";
+import LiveEditor from "../components/LiveEditor.astro";
+
+const loop = `<div id="liste" class="grid grid-cols-1 gap-4 p-6 md:grid-cols-3"></div>
+<script>
+  // Les classes de la carte vivent à UN seul endroit.
+  const carte = (n) => \`
+    <article class="rounded-lg border border-cyan-200 bg-white p-4 shadow-sm">
+      <h3 class="text-lg font-bold text-cyan-800">Carte \${n}</h3>
+      <p class="mt-1 text-sm text-gray-600">Un texte court.</p>
+    </article>\`;
+  document.getElementById("liste").innerHTML =
+    [1, 2, 3, 4, 5, 6].map(carte).join("");
+</script>
+`;
+---
+<Base title="La répétition">
+  <h1>La répétition des classes est le vrai coût de Tailwind</h1>
+  <p class="lead">C'est la critique récurrente, et il faut savoir y répondre proprement.</p>
+
+  <h2>Le problème</h2>
+  <p>Un bouton, c'est six classes. Huit boutons identiques dans une page, c'est quarante-huit classes copiées : si la charte change, il faut modifier huit endroits et on risque d'en oublier un. (Chiffre d'illustration, pas une mesure.) La réponse n'est pas d'utiliser moins de classes, c'est de ne pas les répéter.</p>
+
+  <h2>La bonne réponse : extraire un composant</h2>
+  <p>On le fait dans le langage du projet : un composant React, Vue ou Svelte, un partiel de template serveur, ou une boucle pour une liste. Le HTML verbeux vit à un seul endroit, on l'appelle partout. C'est la méthode recommandée par la documentation officielle. Ici, une simple fonction suffit : change la couleur de la bordure dans <code>carte</code>, les six cartes suivent.</p>
+  <LiveEditor initial={loop} widths height={520} />
+
+  <h2>Et @apply ?</h2>
+  <p><code>@apply</code> recopie des utilitaires dans une règle CSS classique. Ce n'est pas la solution par défaut : on réintroduit un fichier CSS séparé et des noms de classes à inventer, on perd le style visible dans le HTML, et on retrouve un CSS qui grossit sans qu'on sache quelles règles servent encore.</p>
+  <p>Il reste un cas légitime : le HTML qu'on ne contrôle pas (contenu venu d'un CMS, texte converti depuis du Markdown), où l'on ne peut pas ajouter de classes.</p>
+  <pre><code>@layer components &#123;
+  .prose-lead &#123; @apply text-lg text-gray-600; &#125;
+&#125;</code></pre>
+  <p>La formule à retenir : répétition → composant, pas <code>@apply</code>.</p>
+</Base>
+
+<style>
+  pre { background: var(--code-bg); color: var(--code-ink); padding: 16px; border-radius: 12px; overflow-x: auto; }
+  pre code { background: none; color: inherit; font-size: 15px; }
+</style>

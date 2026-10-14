@@ -1,0 +1,48 @@
+---
+import Base from "../layouts/Base.astro";
+import LiveEditor from "../components/LiveEditor.astro";
+
+const button = `<div class="p-8">
+  <button class="rounded-md bg-cyan-700 px-4 py-2 text-white hover:bg-cyan-600">
+    Envoyer
+  </button>
+</div>
+`;
+const palette = `<div class="flex gap-2 p-6">
+  <div class="size-16 rounded bg-slate-100"></div>
+  <div class="size-16 rounded bg-slate-300"></div>
+  <div class="size-16 rounded bg-slate-500"></div>
+  <div class="size-16 rounded bg-slate-700"></div>
+  <div class="size-16 rounded bg-slate-900"></div>
+  <div class="size-16 rounded bg-black/50"></div>
+</div>
+`;
+const layout = `<div class="grid grid-cols-3 gap-4 p-6">
+  <div class="col-span-2 rounded bg-cyan-100 p-4">col-span-2</div>
+  <div class="rounded bg-cyan-100 p-4">1</div>
+  <div class="rounded bg-cyan-100 p-4">2</div>
+  <div class="col-span-2 flex items-center justify-between rounded bg-cyan-200 p-4">
+    <span>flex</span><span>justify-between</span>
+  </div>
+</div>
+`;
+---
+<Base title="Les utilitaires">
+  <h1>Les utilitaires composent toute l'interface sans CSS écrit</h1>
+  <p class="lead">Tailwind ne fournit aucun composant : chaque classe fait une seule chose, et c'est vous qui composez.</p>
+
+  <h2>Un bouton, six classes</h2>
+  <p>Chaque classe correspond à une seule déclaration CSS : <code>px-4</code> veut dire exactement <code>padding-inline: 1rem</code> (marges intérieures gauche et droite). Tailwind est une notation du CSS, pas une couche d'abstraction par-dessus. Change une classe à la fois et regarde l'effet.</p>
+  <LiveEditor initial={button} height={160} />
+
+  <h2>L'échelle d'espacement</h2>
+  <p>Une seule variable de base, <code>--spacing</code>, vaut 0,25 rem (4 px). Toutes les classes d'espacement en sont des multiples : <code>p-1</code> = 4 px, <code>p-2</code> = 8 px, <code>p-4</code> = 16 px, <code>p-8</code> = 32 px. Le faux ami avec Bootstrap : <code>mt-3</code> vaut 1 rem chez Bootstrap, mais 0,75 rem chez Tailwind. Même nom, valeur différente.</p>
+
+  <h2>La palette</h2>
+  <p>Une vingtaine de teintes, chacune en onze nuances de 50 (très clair) à 950 (très sombre), sans rôle prédéfini : <code>bg-slate-100</code>, <code>text-red-600</code>. L'opacité s'écrit dans la classe : <code>bg-black/50</code>.</p>
+  <LiveEditor initial={palette} height={160} />
+
+  <h2>Flex, grid et gap</h2>
+  <p>Ce sont les propriétés CSS que tu connais, en notation courte. Pas de grille de douze colonnes imposée : <code>grid-cols-3</code> fait littéralement trois colonnes égales, tu décides du nombre.</p>
+  <LiveEditor initial={layout} height={260} />
+</Base>

@@ -1,0 +1,35 @@
+---
+import Base from "../layouts/Base.astro";
+import LiveEditor from "../components/LiveEditor.astro";
+
+const resp = `<div class="flex flex-col gap-2 p-4 md:flex-row lg:gap-8">
+  <div class="flex-1 rounded bg-cyan-100 p-4">1</div>
+  <div class="flex-1 rounded bg-cyan-100 p-4">2</div>
+  <div class="flex-1 rounded bg-cyan-100 p-4">3</div>
+</div>
+`;
+const states = `<div class="p-8">
+  <button class="rounded-md bg-cyan-700 px-4 py-2 text-white
+                 hover:bg-cyan-600 focus:ring-4 focus:ring-cyan-300
+                 md:hover:bg-rose-600">
+    Survole-moi, puis agrandis l'aperçu
+  </button>
+</div>
+`;
+---
+<Base title="Responsive et états">
+  <h1>Les préfixes décrivent chaque écran et chaque état</h1>
+  <p class="lead">Une classe sans préfixe vaut pour tous les écrans ; un préfixe ajoute une règle à partir d'un seuil.</p>
+
+  <h2>Les points de rupture</h2>
+  <p><code>sm</code> à partir de 640 px, <code>md</code> 768 px, <code>lg</code> 1024 px, <code>xl</code> 1280 px, <code>2xl</code> 1536 px. L'approche est « mobile d'abord » : on lit les classes du plus petit écran au plus grand. Ce qui n'est pas précisé pour un palier est hérité du palier plus petit. <code>max-md:</code> cible « jusqu'à md ».</p>
+  <p><code>flex flex-col md:flex-row lg:gap-8</code> = colonne sur mobile, ligne dès la tablette, grand écart dès le laptop. Utilise les boutons de largeur. Puis essaie : une colonne sur mobile, <strong>trois</strong> à partir de <code>md</code>, avec une grille.</p>
+  <LiveEditor initial={resp} widths height={360} />
+
+  <h2>Les états</h2>
+  <p>Les mêmes préfixes servent aux états : <code>hover:</code>, <code>focus:</code>, <code>active:</code>, <code>disabled:</code>, <code>first:</code>, <code>last:</code>… Ils se combinent avec les préfixes d'écran, l'écran en premier : <code>md:hover:bg-rose-600</code> = fond rose seulement au survol et seulement à partir de la tablette.</p>
+  <LiveEditor initial={states} widths height={200} />
+
+  <h2>Le mode sombre</h2>
+  <p>Le préfixe <code>dark:</code> suit par défaut la préférence du système d'exploitation, par exemple <code>bg-white dark:bg-gray-900</code>. Pour piloter le thème avec une classe, on redéfinit le variant dans le CSS : c'est vous qui écrivez la règle.</p>
+</Base>
