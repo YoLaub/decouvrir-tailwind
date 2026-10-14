@@ -1,0 +1,34 @@
+---
+import Base from "../../layouts/Base.astro";
+import Chrono from "../../components/Chrono.astro";
+import Notes from "../../components/Notes.astro";
+const base = import.meta.env.BASE_URL;
+const table = `1. d-flex justify-content-between  →
+2. d-none d-md-block  →
+3. container  →
+4. mt-3  →
+5. btn btn-primary  →
+6. text-center  →
+`;
+---
+<Base title="Manche 0">
+  <h1>Manche 0 : traduire le vocabulaire</h1>
+  <p class="lead">Installer Tailwind v4 dans un vrai projet, puis traduire six classes Bootstrap.</p>
+  <Chrono minutes={20} />
+
+  <h2>Étape 1 : installer Tailwind</h2>
+  <p>Dans un projet Vite : le paquet, le plugin, puis l'import CSS. Lance le serveur de développement. La marche à suivre est détaillée sur la page <a href={`${base}installation`}>Brancher Tailwind</a>. Tu as réussi quand une classe Tailwind change l'apparence dans ton navigateur.</p>
+
+  <h2>Étape 2 : la table de correspondance (12 min)</h2>
+  <p>Sans aide de tes voisins, trouve dans <a href="https://tailwindcss.com/docs" target="_blank" rel="noopener">tailwindcss.com/docs</a> l'équivalent Tailwind de chaque classe Bootstrap. Si deux classes ne se correspondent pas tout à fait, ou s'il n'y a pas d'équivalent unique, écris-le aussi.</p>
+  <Notes id="table" label="Ma table de correspondance" rows={9} initial={table} />
+
+  <details>
+    <summary>Coup de pouce</summary>
+    <p>Pages utiles : Flexbox &amp; Grid, Display, Spacing, Container. Compare les valeurs, pas seulement les noms : la même abréviation peut cacher deux tailles différentes.</p>
+  </details>
+  <details>
+    <summary>Défi en plus</summary>
+    <p>Ajoute trois classes Bootstrap de ton choix à la table et trouve leur équivalent.</p>
+  </details>
+</Base>

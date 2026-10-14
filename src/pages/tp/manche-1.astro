@@ -1,0 +1,63 @@
+---
+import Base from "../../layouts/Base.astro";
+import LiveEditor from "../../components/LiveEditor.astro";
+import Chrono from "../../components/Chrono.astro";
+const old = `<nav class="navbar navbar-expand-md bg-body-tertiary">
+  <div class="container">
+    <a class="navbar-brand" href="#">Agence</a>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item"><a class="nav-link" href="#">Accueil</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+<header class="container text-center py-5">
+  <h1 class="display-5">Des sites qui vous ressemblent</h1>
+  <p class="lead">Conception, développement, accompagnement.</p>
+  <a class="btn btn-primary btn-lg" href="#">Parlons de votre projet</a>
+</header>
+<form class="container py-5">
+  <div class="mb-3"><label class="form-label">Nom</label><input class="form-control"></div>
+  <div class="mb-3"><label class="form-label">Email</label><input class="form-control" type="email"></div>
+  <div class="mb-3"><label class="form-label">Message</label><textarea class="form-control" rows="4"></textarea></div>
+  <button class="btn btn-primary">Envoyer</button>
+</form>
+`;
+const initial = `<!-- Ta version Tailwind : navbar, accueil, formulaire -->
+`;
+---
+<Base title="Manche 1">
+  <h1>Manche 1 : recomposer la page</h1>
+  <p class="lead">Reconstruis la navbar, l'accueil et le formulaire avec des utilitaires Tailwind uniquement.</p>
+  <Chrono minutes={35} />
+
+  <h2>Les exigences</h2>
+  <ul>
+    <li>La navbar passe en menu vertical sous <code>md</code>.</li>
+    <li>Le bouton principal réagit au survol et au focus.</li>
+    <li>Zéro CSS écrit à la main : seulement des classes.</li>
+  </ul>
+  <p>Ton HTML sera plus long qu'en Bootstrap : c'est normal.</p>
+
+  <details>
+    <summary>Le code Bootstrap à reconstruire</summary>
+    <pre><code set:text={old}></code></pre>
+  </details>
+
+  <LiveEditor {initial} widths height={560} />
+
+  <details>
+    <summary>Coup de pouce</summary>
+    <p>Pages utiles : Flexbox, Responsive design, Hover, focus &amp; other states. Un préfixe comme <code>md:</code> applique la classe à partir de cette largeur : écris d'abord la version mobile.</p>
+  </details>
+  <details>
+    <summary>Défi en plus</summary>
+    <p>Remplace le point de rupture de l'écran par une container query (<code>@container</code>) sur la grille.</p>
+  </details>
+</Base>
+
+<style>
+  pre { background: var(--code-bg); color: var(--code-ink); padding: 16px; border-radius: 12px; overflow-x: auto; }
+  pre code { background: none; color: inherit; font-size: 14px; }
+</style>

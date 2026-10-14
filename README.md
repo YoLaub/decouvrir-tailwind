@@ -24,3 +24,11 @@ Pushing to `main` deploys through GitHub Actions.
 
 Create `src/pages/<slug>.astro` and add the slug to `src/lib/pages.ts`, which drives the
 index and the previous/next navigation.
+
+## Le Portage (hands-on activity)
+
+The activity lives under `/tp/`: a hub, rounds 0 to 2 chained with previous/next buttons,
+and two pages released on demand (`manche-3`, `jeu-des-erreurs`) that are linked from
+nowhere, so the trainer shares the URL when the round starts (see `src/lib/tp.ts`).
+Answer keys, scoring and observation grid are trainer-only and never committed here;
+a test guards the pages against those words. Pages carry `noindex`.

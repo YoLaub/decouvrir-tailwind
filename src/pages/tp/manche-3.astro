@@ -1,0 +1,60 @@
+---
+import Base from "../../layouts/Base.astro";
+import LiveEditor from "../../components/LiveEditor.astro";
+import Chrono from "../../components/Chrono.astro";
+import Notes from "../../components/Notes.astro";
+const initial = `<div class="min-h-40 bg-white p-6 text-gray-900 dark:bg-gray-900 dark:text-white">
+  <h1 class="text-2xl font-bold">Agence</h1>
+  <p class="mt-2">Une page de test pour la charte.</p>
+  <button class="mt-4 rounded-md bg-cyan-700 px-4 py-2 text-white">Contact</button>
+</div>
+`;
+const css = `@import "tailwindcss";
+
+/* Ta charte ici */
+`;
+---
+<Base title="Manche 3">
+  <h1>Manche 3 : la charte de marque</h1>
+  <p class="lead">Le client vient de changer d'avis.</p>
+
+  <aside class="carton">
+    <h2>Nouvelle charte</h2>
+    <ul>
+      <li>Couleur de marque : <code>oklch(0.55 0.20 25)</code> (rouge)</li>
+      <li>Police : <code>"Fraunces", serif</code></li>
+      <li>Rayon des coins : <code>0</code></li>
+    </ul>
+  </aside>
+
+  <h2>Partie 1 : appliquer la charte (15 min)</h2>
+  <Chrono minutes={15} />
+  <ul>
+    <li>Via <code>@theme</code> : la couleur de marque doit devenir utilisable comme <code>bg-brand-500</code> et <code>text-brand-500</code>.</li>
+    <li>Change la police et supprime les coins arrondis du site.</li>
+    <li>Passe le mode sombre en pilotage par classe, avec un bouton qui bascule <code>&lt;html class="dark"&gt;</code>.</li>
+  </ul>
+  <LiveEditor {initial} {css} height={340} />
+
+  <details>
+    <summary>Coup de pouce</summary>
+    <p>Les jetons du thème portent le nom de leur famille : <code>--color-*</code>, <code>--font-*</code>, <code>--radius-*</code>. Pour le mode sombre par classe, cherche « dark mode » dans la documentation, section « toggle manually ».</p>
+  </details>
+
+  <h2>Partie 2 : deux projets, un choix (8 min)</h2>
+  <Chrono minutes={8} />
+  <blockquote>
+    Pour chacun de ces deux projets, choisirais-tu Tailwind, Bootstrap ou du CSS pur, et pourquoi ? Trois lignes chacun.
+    <ol type="a">
+      <li>Un tableau de bord interne, à livrer en quatre jours, sans maquette ni graphiste.</li>
+      <li>Le site vitrine d'un studio de design : maquette Figma sur mesure, équipe qui maîtrise CSS, identité à faire évoluer sur deux ans.</li>
+    </ol>
+  </blockquote>
+  <Notes id="choix" label="Mes réponses" rows={8} />
+</Base>
+
+<style>
+  .carton { margin: 16px 0 8px; padding: 8px 24px 16px; border: 3px solid oklch(0.55 0.2 25); background: #fff; font-family: Georgia, serif; }
+  .carton h2 { margin-top: 12px; color: oklch(0.55 0.2 25); }
+  blockquote { margin: 12px 0; padding: 12px 20px; border-left: 4px solid var(--accent); background: var(--panel); }
+</style>

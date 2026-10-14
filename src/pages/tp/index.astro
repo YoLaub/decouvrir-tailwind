@@ -1,0 +1,27 @@
+---
+import Base from "../../layouts/Base.astro";
+const base = import.meta.env.BASE_URL;
+---
+<Base title="Le Portage">
+  <h1>Le Portage : de Bootstrap à Tailwind</h1>
+  <p class="lead">L'agence migre un vieux site Bootstrap vers Tailwind. Chaque manche est une étape du portage, avec son chrono. Le formateur annonce le départ de chaque manche.</p>
+
+  <h2>Le point de départ</h2>
+  <p>Une page déjà faite en Bootstrap : barre de navigation, section d'accueil, six cartes, formulaire de contact. Tu vas la reconstruire avec Tailwind. Tout au long de la journée, la vraie difficulté n'est pas la syntaxe : c'est de passer de « le composant est fourni » à « je le compose moi-même ».</p>
+  <p><a href={`${base}tp/portage-start.html`} download>Télécharger la page de départ</a> (elle charge Bootstrap par CDN).</p>
+
+  <h2>Comment ça marche</h2>
+  <ul>
+    <li>Les éditeurs des pages exécutent Tailwind dans le navigateur : tu peux travailler sans rien installer. Seule la manche 0 demande un vrai projet sur ton poste.</li>
+    <li>Tes notes sont enregistrées dans ton navigateur. Le bouton « Copier mes notes » sert à les envoyer au formateur.</li>
+    <li>Le score est une émulation, pas une note. Une manche à zéro signale une notion à reprendre avant la fin de la journée.</li>
+  </ul>
+
+  <p><a class="go" href={`${base}tp/manche-0`}>Manche 0 : Traduire le vocabulaire →</a></p>
+  <p class="lead">Les manches suivantes s'ouvrent l'une après l'autre. La dernière te sera donnée en séance.</p>
+</Base>
+
+<style>
+  .go { display: inline-block; padding: 12px 20px; border: 2px solid var(--accent); border-radius: 10px; font-weight: 700; color: var(--ink); text-decoration: none; }
+  .go:hover { background: #e3f4f8; }
+</style>

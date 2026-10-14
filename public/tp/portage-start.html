@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agence · ancien site Bootstrap</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-md bg-body-tertiary">
+    <div class="container">
+      <a class="navbar-brand" href="#">Agence</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="container text-center py-5">
+    <h1 class="display-5">Des sites qui vous ressemblent</h1>
+    <p class="lead">Conception, développement, accompagnement.</p>
+    <a class="btn btn-primary btn-lg" href="#contact">Parlons de votre projet</a>
+  </header>
+
+  <section class="container">
+    <div class="row g-4">
+      <div class="col-md-4"><div class="card h-100"><div class="card-body"><h5 class="card-title">Conseil</h5><p class="card-text">Un texte court.</p></div></div></div>
+      <div class="col-md-4"><div class="card h-100"><div class="card-body"><h5 class="card-title">Design</h5><p class="card-text">Un texte court.</p></div></div></div>
+      <div class="col-md-4"><div class="card h-100"><div class="card-body"><h5 class="card-title">Code</h5><p class="card-text">Un texte court.</p></div></div></div>
+      <div class="col-md-4"><div class="card h-100"><div class="card-body"><h5 class="card-title">Tests</h5><p class="card-text">Un texte court.</p></div></div></div>
+      <div class="col-md-4"><div class="card h-100"><div class="card-body"><h5 class="card-title">Mise en ligne</h5><p class="card-text">Un texte court.</p></div></div></div>
+      <div class="col-md-4"><div class="card h-100"><div class="card-body"><h5 class="card-title">Suivi</h5><p class="card-text">Un texte court.</p></div></div></div>
+    </div>
+  </section>
+
+  <form class="container py-5" id="contact">
+    <div class="mb-3"><label class="form-label" for="n">Nom</label><input class="form-control" id="n"></div>
+    <div class="mb-3"><label class="form-label" for="e">Email</label><input class="form-control" id="e" type="email"></div>
+    <div class="mb-3"><label class="form-label" for="m">Message</label><textarea class="form-control" id="m" rows="4"></textarea></div>
+    <button class="btn btn-primary">Envoyer</button>
+  </form>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

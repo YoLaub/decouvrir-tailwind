@@ -1,0 +1,28 @@
+---
+import Base from "../../layouts/Base.astro";
+import Notes from "../../components/Notes.astro";
+const css = `/* app.css */
+@tailwind base;
+@tailwind utilities;
+
+@layer components {
+  .card { @apply p-4 rounded shadow bg-white text-gray-900 border flex flex-col gap-2 hover:shadow-lg transition; }
+}
+`;
+const jsx = `{items.map(i => (
+  <div className={\`bg-\${i.color}-100 p-[13px] mt-[7px] text-[15px]\`}>{i.name}</div>
+))}
+`;
+---
+<Base title="Jeu des erreurs">
+  <h1>Jeu des erreurs</h1>
+  <p class="lead">Ces deux extraits Tailwind sont fautifs. Trouve toutes les erreurs et nomme-les précisément. Un point par erreur bien nommée.</p>
+  <pre><code set:text={css}></code></pre>
+  <pre><code set:text={jsx}></code></pre>
+  <Notes id="erreurs" label="Mes erreurs trouvées" rows={8} />
+</Base>
+
+<style>
+  pre { background: var(--code-bg); color: var(--code-ink); padding: 16px; border-radius: 12px; overflow-x: auto; }
+  pre code { background: none; color: inherit; font-size: 15px; }
+</style>

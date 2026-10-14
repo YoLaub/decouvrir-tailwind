@@ -1,10 +1,13 @@
 ---
 import { neighbors } from "../lib/pages";
+import { tpNeighbors } from "../lib/tp";
 interface Props { title: string }
 const { title } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const slug = Astro.url.pathname.replace(base, "").replace(/^\/|\/$/g, "");
-const { prev, next } = neighbors(slug);
+const isTp = slug === "tp" || slug.startsWith("tp/");
+const { prev, next } = isTp ? tpNeighbors(slug.slice(3)) : neighbors(slug);
+const href = (s: string) => `${base}${isTp ? "tp/" : ""}${s}`;
 ---
 <!doctype html>
 <html lang="fr">
@@ -12,6 +15,7 @@ const { prev, next } = neighbors(slug);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="data:," />
+    {isTp && <meta name="robots" content="noindex" />}
     <title>{title} · Découvrir Tailwind</title>
   </head>
   <body>
@@ -23,8 +27,8 @@ const { prev, next } = neighbors(slug);
       <slot />
       {(prev || next) && (
         <nav class="pager" aria-label="Navigation du cours">
-          {prev ? <a class="prev" href={`${base}${prev.slug}`}>← {prev.title}</a> : <span />}
-          {next ? <a class="next" href={`${base}${next.slug}`}>{next.title} →</a> : <span />}
+          {prev ? <a class="prev" href={href(prev.slug)}>← {prev.title}</a> : <span />}
+          {next ? <a class="next" href={href(next.slug)}>{next.title} →</a> : <span />}
         </nav>
       )}
     </main>

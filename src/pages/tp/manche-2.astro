@@ -1,0 +1,37 @@
+---
+import Base from "../../layouts/Base.astro";
+import LiveEditor from "../../components/LiveEditor.astro";
+import Chrono from "../../components/Chrono.astro";
+import Notes from "../../components/Notes.astro";
+const initial = `<!-- Étape 1 : une seule carte -->
+<article class="p-4">
+  <h3>Conseil</h3>
+  <p>Un texte court.</p>
+</article>
+`;
+---
+<Base title="Manche 2">
+  <h1>Manche 2 : la grille de cartes qui se répète</h1>
+  <p class="lead">Six cartes identiques, sans copier-coller les classes six fois.</p>
+  <Chrono minutes={25} />
+
+  <h2>Les trois étapes</h2>
+  <ol>
+    <li>Intègre une seule carte avec Tailwind, bien soignée.</li>
+    <li>Produis les six sans dupliquer les classes : une boucle dans le template, ou un petit composant, à toi de choisir.</li>
+    <li>Note dans la zone ci-dessous combien d'endroits il faudrait modifier si la couleur des cartes changeait.</li>
+  </ol>
+  <LiveEditor {initial} widths height={520} label="Le JavaScript de l'aperçu s'exécute : une boucle est possible" />
+  <Notes id="combien" label="Étape 3 : combien d'endroits à modifier ?" rows={3} />
+
+  <details>
+    <summary>Coup de pouce</summary>
+    <p>Regarde la page « La répétition » du cours : une simple fonction qui renvoie le HTML d'une carte suffit.</p>
+  </details>
+  <details>
+    <summary>Défi en plus</summary>
+    <p>Rends la carte paramétrable : la couleur est passée en argument.</p>
+  </details>
+
+  <p class="lead">Fini ? Garde ton travail de côté et attends le signal du formateur pour la suite.</p>
+</Base>
