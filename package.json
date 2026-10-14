@@ -1,0 +1,17 @@
+{
+  "name": "tailwind-cda-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "vendor": "node scripts/copy-vendor.mjs",
+    "dev": "npm run vendor && astro dev",
+    "build": "npm run vendor && astro build",
+    "preview": "astro preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@tailwindcss/browser": "4.3.3",
+    "astro": "^7.3.8",
+    "vitest": "^5.0.4"
+  }
+}
