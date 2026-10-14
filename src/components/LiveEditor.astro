@@ -1,0 +1,91 @@
+---
+interface Props { initial: string; css?: string; label?: string; widths?: boolean; height?: number }
+const { initial, css, label = "Modifie le HTML, l'aperçu se met à jour", widths = false, height = 320 } = Astro.props;
+const assetBase = `${import.meta.env.BASE_URL}vendor/`;
+---
+<figure class="editor" data-live-editor data-asset-base={assetBase}>
+  <figcaption>{label}</figcaption>
+  <div class={`panes${widths ? " stacked" : ""}`}>
+    <div class="pane sources">
+      <div class="file">
+        <label>HTML (ce que tu écris)</label>
+        <textarea class="html" spellcheck="false" aria-label="Code HTML">{initial}</textarea>
+      </div>
+      {css !== undefined && (
+        <div class="file">
+          <label>CSS (Tailwind le traite ici, dans le navigateur)</label>
+          <textarea class="css" spellcheck="false" aria-label="Code CSS">{css}</textarea>
+        </div>
+      )}
+    </div>
+    <div class="pane">
+      <label>Aperçu</label>
+      {widths && (
+        <div class="widths" role="group" aria-label="Largeur de l'aperçu">
+          <button type="button" data-width="375">Mobile 375 px</button>
+          <button type="button" data-width="768">Tablette 768 px</button>
+          <button type="button" data-width="100%" aria-pressed="true">Bureau</button>
+        </div>
+      )}
+      <iframe title="Aperçu" style={`height:${height}px`} sandbox="allow-scripts"></iframe>
+    </div>
+  </div>
+</figure>
+
+<script>
+  import { buildPreviewDoc } from "../lib/preview";
+
+  document.querySelectorAll<HTMLElement>("[data-live-editor]").forEach((root) => {
+    const html = root.querySelector<HTMLTextAreaElement>("textarea.html")!;
+    const css = root.querySelector<HTMLTextAreaElement>("textarea.css");
+    const frame = root.querySelector<HTMLIFrameElement>("iframe")!;
+    const assetBase = root.dataset.assetBase!;
+
+    let timer: number | undefined;
+    const run = () => {
+      frame.srcdoc = buildPreviewDoc(html.value, { assetBase, css: css?.value });
+    };
+    const schedule = () => { window.clearTimeout(timer); timer = window.setTimeout(run, 200); };
+
+    [html, css].forEach((area) => {
+      if (!area) return;
+      area.addEventListener("input", schedule);
+      area.addEventListener("keydown", (event) => {
+        if (event.key !== "Tab") return;
+        event.preventDefault();
+        area.setRangeText("  ", area.selectionStart, area.selectionEnd, "end");
+        schedule();
+      });
+    });
+
+    root.querySelectorAll<HTMLButtonElement>(".widths button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const w = button.dataset.width!;
+        frame.style.width = w === "100%" ? "100%" : `${Number(w) + 4}px`; // +4: the 2 px border eats into the viewport
+        root.querySelectorAll(".widths button").forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+      });
+    });
+    run();
+  });
+</script>
+
+<style>
+  .editor { margin: 20px 0; padding: 0; }
+  figcaption { color: var(--muted); font-size: 16px; margin-bottom: 8px; }
+  .panes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panes.stacked { grid-template-columns: 1fr; }
+  @media (max-width: 800px) { .panes { grid-template-columns: 1fr; } }
+  .file + .file { margin-top: 12px; }
+  label { display: block; font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  textarea {
+    width: 100%; min-height: 220px; margin: 0; padding: 16px; border-radius: 12px; resize: vertical;
+    background: var(--code-bg); color: var(--code-ink); border: 2px solid transparent;
+    font: 15px/1.6 "JetBrains Mono", ui-monospace, monospace; white-space: pre; tab-size: 2;
+  }
+  textarea.css { min-height: 110px; }
+  textarea:focus { outline: none; border-color: var(--accent); }
+  iframe { display: block; max-width: 100%; border: 2px solid var(--line); border-radius: 12px; background: #fff; width: 100%; }
+  .widths { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .widths button { font: 600 14px Inter, system-ui, sans-serif; padding: 6px 12px; border-radius: 8px; border: 2px solid var(--line); background: var(--panel); cursor: pointer; }
+  .widths button[aria-pressed="true"] { border-color: var(--accent); background: #dff4f9; }
+</style>
