@@ -16,7 +16,7 @@ describe("neighbors", () => {
   });
   it("lists the course pages in teaching order", () => {
     expect(pages.map((p) => p.slug)).toEqual([
-      "installation", "utilitaires", "responsive", "repetition", "theme", "evaluation", "aller-plus-loin",
+      "installation", "utilitaires", "responsive", "repetition", "theme", "bibliotheques", "evaluation", "aller-plus-loin",
     ]);
   });
   it("never publishes trainer-only material", () => {

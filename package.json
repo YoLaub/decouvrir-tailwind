@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/browser": "4.3.3",
     "astro": "^7.3.8",
+    "daisyui": "^5.5.0",
     "vitest": "^5.0.4"
   }
 }

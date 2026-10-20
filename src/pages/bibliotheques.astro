@@ -1,0 +1,96 @@
+---
+import Base from "../layouts/Base.astro";
+import LiveEditor from "../components/LiveEditor.astro";
+
+const seul = `<div class="p-8">
+  <div class="w-80 rounded-xl border border-slate-200 bg-white p-6 shadow">
+    <h3 class="text-lg font-semibold">Atelier Tailwind</h3>
+    <p class="mt-2 text-slate-600">Une journée pour composer ses interfaces.</p>
+    <div class="mt-4 flex justify-end">
+      <button class="rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-500">
+        S'inscrire
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+const daisy = `<div class="p-8">
+  <div class="card card-border bg-base-100 w-80">
+    <div class="card-body">
+      <h3 class="card-title">Atelier Tailwind</h3>
+      <p>Une journée pour composer ses interfaces.</p>
+      <div class="card-actions justify-end">
+        <button class="btn btn-primary">S'inscrire</button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+const themes = `<div class="flex flex-wrap gap-4 p-8">
+  <div data-theme="light" class="rounded-xl bg-base-100 p-4">
+    <button class="btn btn-primary">Light</button>
+  </div>
+  <div data-theme="dark" class="rounded-xl bg-base-100 p-4">
+    <button class="btn btn-primary">Dark</button>
+  </div>
+  <div data-theme="cupcake" class="rounded-xl bg-base-100 p-4">
+    <button class="btn btn-primary">Cupcake</button>
+  </div>
+  <div data-theme="dracula" class="rounded-xl bg-base-100 p-4">
+    <button class="btn btn-primary">Dracula</button>
+  </div>
+</div>
+`;
+
+const shadcn = `// components/ui/button.tsx (version simplifiée)
+const buttonVariants = cva(
+  "inline-flex items-center justify-center rounded-md text-sm font-medium",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        outline: "border bg-background hover:bg-accent",
+      },
+      size: {
+        default: "h-9 px-4 py-2",
+        sm: "h-8 px-3",
+      },
+    },
+    defaultVariants: { variant: "default", size: "default" },
+  }
+)
+
+// utilisation
+<Button variant="outline" size="sm">Annuler</Button>`;
+---
+<Base title="Les bibliothèques">
+  <h1>Une bibliothèque rend à Tailwind la rapidité de Bootstrap</h1>
+  <p class="lead">Tailwind seul demande de tout composer. Des bibliothèques posent des composants par-dessus, avec deux philosophies très différentes.</p>
+
+  <h2>Le point de départ : Tailwind seul</h2>
+  <p>Cette carte est écrite uniquement avec des utilitaires. Compte les classes d'un seul bouton : c'est le prix de la liberté totale.</p>
+  <LiveEditor initial={seul} height={260} />
+
+  <h2>daisyUI : des noms de composants, comme Bootstrap</h2>
+  <p>daisyUI ajoute des classes de composants à Tailwind : <code>btn</code>, <code>card</code>, <code>card-body</code>. La même carte s'écrit avec bien moins de classes, et tu retrouves le réflexe de Bootstrap. Tu peux toujours ajouter des utilitaires Tailwind sur le même élément pour ajuster.</p>
+  <LiveEditor initial={daisy} height={260} daisyui />
+
+  <h2>Les thèmes : changer toute l'apparence d'un coup</h2>
+  <p>Les couleurs de daisyUI ont des rôles (<code>primary</code>, <code>base-100</code>) et non des nuances. Un attribut <code>data-theme</code> suffit pour tout recolorer. Le même <code>btn-primary</code> change de couleur selon le thème qui l'entoure. Remplace un nom de thème par <code>synthwave</code>, <code>retro</code> ou <code>forest</code>.</p>
+  <LiveEditor initial={themes} height={220} daisyui />
+
+  <h2>shadcn/ui : tu copies le code, il t'appartient</h2>
+  <p>shadcn/ui fonctionne à l'inverse. Ce n'est pas un paquet que tu installes et dont tu dépends. Une commande copie le fichier du composant dans ton projet : à partir de là, c'est ton code, tu le modifies comme tu veux. Il s'appuie sur React, qui doit être installé dans le projet, ce qui explique qu'il ne tourne pas dans l'éditeur de cette page. Voici à quoi ressemble un bouton :</p>
+  <pre><code>{shadcn}</code></pre>
+  <p>Chaque variante est une simple chaîne d'utilitaires Tailwind que tu reconnais. Le composant ne cache rien : c'est de la composition, rangée proprement.</p>
+
+  <h2>Laquelle choisir ?</h2>
+  <ul>
+    <li><strong>Tailwind seul</strong> : design sur mesure, tu assumes tout (accessibilité comprise).</li>
+    <li><strong>daisyUI</strong> : un rendu propre vite, sans framework JavaScript. Proche de Bootstrap.</li>
+    <li><strong>shadcn/ui</strong> : un projet React, avec des composants accessibles que tu possèdes et fais évoluer.</li>
+  </ul>
+  <p>Dans les trois cas, ce que tu as appris aujourd'hui reste la base : les composants de ces bibliothèques sont écrits en classes Tailwind.</p>
+</Base>

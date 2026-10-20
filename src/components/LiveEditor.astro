@@ -1,9 +1,9 @@
 ---
-interface Props { initial: string; css?: string; label?: string; widths?: boolean; height?: number }
-const { initial, css, label = "Modifie le HTML, l'aperçu se met à jour", widths = false, height = 320 } = Astro.props;
+interface Props { initial: string; css?: string; label?: string; widths?: boolean; height?: number; daisyui?: boolean }
+const { initial, css, label = "Modifie le HTML, l'aperçu se met à jour", widths = false, height = 320, daisyui = false } = Astro.props;
 const assetBase = `${import.meta.env.BASE_URL}vendor/`;
 ---
-<figure class="editor" data-live-editor data-asset-base={assetBase}>
+<figure class="editor" data-live-editor data-asset-base={assetBase} data-daisyui={daisyui ? "true" : undefined}>
   <figcaption>{label}</figcaption>
   <div class={`panes${widths ? " stacked" : ""}`}>
     <div class="pane sources">
@@ -43,7 +43,7 @@ const assetBase = `${import.meta.env.BASE_URL}vendor/`;
 
     let timer: number | undefined;
     const run = () => {
-      frame.srcdoc = buildPreviewDoc(html.value, { assetBase, css: css?.value });
+      frame.srcdoc = buildPreviewDoc(html.value, { assetBase, css: css?.value, daisyui: root.dataset.daisyui === "true" });
     };
     const schedule = () => { window.clearTimeout(timer); timer = window.setTimeout(run, 200); };
 

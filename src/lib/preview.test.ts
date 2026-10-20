@@ -27,4 +27,14 @@ describe("buildPreviewDoc", () => {
   it("adds a viewport meta so breakpoints follow the frame width", () => {
     expect(buildPreviewDoc("", opts)).toContain('name="viewport"');
   });
+
+  it("does not load daisyUI unless asked", () => {
+    expect(buildPreviewDoc("", opts)).not.toContain("daisyui");
+  });
+
+  it("loads the self-hosted daisyUI stylesheet when asked", () => {
+    const doc = buildPreviewDoc("", { ...opts, daisyui: true });
+    expect(doc).toContain('<link rel="stylesheet" href="/decouvrir-tailwind/vendor/daisyui.css">');
+    expect(doc).toContain('<link rel="stylesheet" href="/decouvrir-tailwind/vendor/daisyui-themes.css">');
+  });
 });

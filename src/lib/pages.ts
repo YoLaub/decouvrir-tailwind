@@ -6,6 +6,7 @@ export const pages: Page[] = [
   { slug: "responsive", title: "Responsive et états" },
   { slug: "repetition", title: "La répétition" },
   { slug: "theme", title: "Personnaliser avec @theme" },
+  { slug: "bibliotheques", title: "Les bibliothèques" },
   { slug: "evaluation", title: "Teste tes acquis" },
   { slug: "aller-plus-loin", title: "Aller plus loin" },
 ];
