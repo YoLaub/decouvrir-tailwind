@@ -3,36 +3,72 @@ import Base from "../../layouts/Base.astro";
 import LiveEditor from "../../components/LiveEditor.astro";
 import Chrono from "../../components/Chrono.astro";
 import Notes from "../../components/Notes.astro";
-const base = import.meta.env.BASE_URL;
-const initial = `<!-- Étape 1 : une seule carte -->
-<article class="p-4">
-  <h3>Conseil</h3>
-  <p>Un texte court.</p>
-</article>
+const initial = `<nav class="bg-gray-100">
+  <div class="container mx-auto flex flex-col px-4 py-2 md:flex-row md:items-center">
+    <a class="py-2 text-xl text-gray-900" href="#">Agence</a>
+    <ul class="flex flex-col md:ml-auto md:flex-row md:gap-2">
+      <li><a class="block px-2 py-2 text-gray-600 hover:text-gray-900" href="#">Accueil</a></li>
+      <li><a class="block px-2 py-2 text-gray-600 hover:text-gray-900" href="#">Services</a></li>
+      <li><a class="block px-2 py-2 text-gray-600 hover:text-gray-900" href="#">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="container mx-auto px-4 py-12 text-center">
+  <h1 class="text-5xl font-light">Des sites qui vous ressemblent</h1>
+  <p class="mt-4 text-xl font-light">Conception, développement, accompagnement.</p>
+  <a class="mt-6 inline-block rounded-lg bg-blue-600 px-6 py-3 text-xl text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300" href="#">Parlons de votre projet</a>
+</header>
+
+<form class="container mx-auto px-4 py-12">
+  <div class="mb-4">
+    <label class="mb-2 block" for="nom">Nom</label>
+    <input class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-300" id="nom">
+  </div>
+  <div class="mb-4">
+    <label class="mb-2 block" for="email">Email</label>
+    <input class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-300" id="email" type="email">
+  </div>
+  <div class="mb-4">
+    <label class="mb-2 block" for="message">Message</label>
+    <textarea class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-300" id="message" rows="4"></textarea>
+  </div>
+  <button class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">Envoyer</button>
+</form>
+`;
+const css = `@import "tailwindcss";
+
+/* 1. Tes tokens : @theme */
+
+/* 2. Tes composants : @utility */
 `;
 ---
 <Base title="Manche 2">
-  <h1>Manche 2 : la grille de cartes qui se répète</h1>
-  <p class="lead">Six cartes identiques, sans copier-coller les classes six fois.</p>
+  <h1>Manche 2 : extraire les composants</h1>
+  <p class="lead">Ta page fonctionne, mais les mêmes classes sont répétées partout. Pose un petit design system : des tokens, puis des composants qui les lisent.</p>
   <Chrono minutes={25} />
 
   <h2>Les trois étapes</h2>
   <ol>
-    <li>Intègre une seule carte avec Tailwind, bien soignée.</li>
-    <li>Produis les six sans dupliquer les classes : une boucle dans le template, ou un petit composant, à toi de choisir.</li>
-    <li>Note dans la zone ci-dessous combien d'endroits il faudrait modifier si la couleur des cartes changeait.</li>
+    <li>Dans <code>@theme</code>, déclare les tokens de la marque : la couleur du bouton, sa couleur au survol, la couleur de l'anneau de focus et le rayon des coins des contrôles.</li>
+    <li>Avec <code>@utility</code>, crée deux composants : <code>btn</code> (couleur, coins, survol, focus) et <code>field</code> (largeur, bordure, espacement, focus). Aucune couleur écrite en dur : tout vient des tokens.</li>
+    <li>Remplace dans le HTML les classes répétées par <code>btn</code> et <code>field</code>. Le reste de la mise en page reste en utilitaires.</li>
   </ol>
-  <p>Pour voir la grille Bootstrap à reproduire : <a href={`${base}tp/annexe-2/`} target="_blank" rel="noopener">annexe 2, la grille de cartes</a>.</p>
-  <LiveEditor {initial} widths height={520} label="Le JavaScript de l'aperçu s'exécute : une boucle est possible" />
-  <Notes id="combien" label="Étape 3 : combien d'endroits à modifier ?" rows={3} />
+  <p>L'éditeur contient déjà la page de la manche 1 : pars de la tienne ou de celle-ci, comme tu préfères.</p>
+  <LiveEditor {initial} {css} widths height={560} label="La page à factoriser : le HTML en haut, les tokens et composants dans le CSS" />
+  <Notes id="extraction" label="Si le client change la couleur de marque, combien d'endroits à modifier, avant et après ?" rows={3} />
 
   <details>
     <summary>Coup de pouce</summary>
-    <p>Regarde la page « La répétition » du cours : une simple fonction qui renvoie le HTML d'une carte suffit.</p>
+    <p>Pages utiles : Theme variables, puis Functional utilities (<code>@utility</code>) dans « Adding custom styles ». Un token <code>--color-brand</code> donne à la fois une variable et des classes comme <code>bg-brand</code>. Pour le survol et le focus, écris <code>&amp;:hover</code> et <code>&amp;:focus</code> dans le composant.</p>
+  </details>
+  <details>
+    <summary>Une question de conception</summary>
+    <p>Que doit fixer un composant, et que doit-il laisser à celui qui l'utilise ? Teste avec le bouton du héros, plus grand que celui du formulaire.</p>
   </details>
   <details>
     <summary>Défi en plus</summary>
-    <p>Rends la carte paramétrable : la couleur est passée en argument.</p>
+    <p>Ajoute une variante <code>btn-outline</code> qui réutilise les mêmes tokens, puis change la valeur de <code>--color-brand</code> pour vérifier que tout suit.</p>
   </details>
 
   <p class="lead">Fini ? Garde ton travail de côté et attends le signal du formateur pour la suite.</p>
