@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import LiveEditor from "../../components/LiveEditor.astro";
 import Chrono from "../../components/Chrono.astro";
+const base = import.meta.env.BASE_URL;
 const old = `<nav class="navbar navbar-expand-md bg-body-tertiary">
   <div class="container">
     <a class="navbar-brand" href="#">Agence</a>
@@ -44,6 +45,7 @@ const initial = `<!-- Ta version Tailwind : navbar, accueil, formulaire -->
     <summary>Le code Bootstrap à reconstruire</summary>
     <pre><code set:text={old}></code></pre>
   </details>
+  <p>Pour voir cette page Bootstrap dans le navigateur : <a href={`${base}tp/annexe-1/`} target="_blank" rel="noopener">annexe 1, la page à reconstruire</a>.</p>
 
   <LiveEditor {initial} widths height={560} />
 
