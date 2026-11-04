@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manche 3 · correction Tailwind</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
+  <style type="text/tailwindcss">
+    @import "tailwindcss";
+
+    /* Mode sombre piloté par la classe "dark" sur <html> */
+    @custom-variant dark (&:where(.dark, .dark *));
+
+    @theme {
+      --color-brand-500: oklch(0.55 0.20 25);
+      --font-sans: "Fraunces", serif;
+      --radius-xs: 0;
+      --radius-sm: 0;
+      --radius-md: 0;
+      --radius-lg: 0;
+      --radius-xl: 0;
+      --radius-2xl: 0;
+      --radius-3xl: 0;
+      --radius-4xl: 0;
+    }
+  </style>
+</head>
+<body>
+<div class="min-h-40 bg-white p-6 text-gray-900 dark:bg-gray-900 dark:text-white">
+  <h1 class="text-2xl font-bold text-brand-500">Agence</h1>
+  <p class="mt-2">Une page de test pour la charte.</p>
+  <button class="mt-4 rounded-md bg-brand-500 px-4 py-2 text-white">Contact</button>
+  <button class="mt-4 rounded-md border border-gray-400 px-4 py-2"
+          onclick="document.documentElement.classList.toggle('dark')">Mode sombre</button>
+</div>
+
+<!--
+  Partie 2, réponses possibles (à discuter, il n'y a pas une seule bonne réponse) :
+
+  a) Tableau de bord interne, quatre jours, ni maquette ni graphiste : Bootstrap.
+     Tableaux, formulaires, modales et navigation sont déjà prêts, donc on livre vite sans décider du design.
+     (Tailwind avec une bibliothèque de composants comme daisyUI marche aussi.)
+
+  b) Site vitrine d'un studio de design, maquette Figma sur mesure, identité qui évolue : Tailwind.
+     Rien n'est imposé visuellement, et les couleurs, polices et rayons vivent dans un seul @theme.
+     Du CSS pur est défendable aussi, puisque l'équipe maîtrise CSS.
+     Bootstrap serait un mauvais choix : il faudrait écraser son look partout.
+-->
+</body>
+</html>

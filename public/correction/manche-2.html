@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manche 2 · correction Tailwind</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
+</head>
+<body>
+<section class="container mx-auto px-4 py-12">
+  <div id="cartes" class="grid gap-6 md:grid-cols-3"></div>
+</section>
+
+<script>
+  // Les classes d'une carte ne sont écrites qu'une fois : ici.
+  // Étape 3 : si la couleur change, il y a 1 seul endroit à modifier (au lieu de 6 en copiant-collant).
+  const carte = (titre, texte) => `
+    <article class="h-full rounded-md border border-gray-200 bg-white p-4">
+      <h3 class="mb-2 text-xl">${titre}</h3>
+      <p>${texte}</p>
+    </article>`;
+
+  const donnees = [["Conseil", "Un texte court."], ["Design", "Un texte court."], ["Code", "Un texte court."], ["Tests", "Un texte court."], ["Mise en ligne", "Un texte court."], ["Suivi", "Un texte court."]];
+  document.querySelector("#cartes").innerHTML = donnees.map(([titre, texte]) => carte(titre, texte)).join("");
+</script>
+
+<!--
+  Défi en plus : carte paramétrable par sa couleur.
+  Les classes doivent être écrites en entier dans le code, jamais assemblées par morceaux ("bg-" + couleur).
+
+  const tons = {
+    bleu: "border-blue-300 bg-blue-50",
+    vert: "border-green-300 bg-green-50",
+  };
+  const carte = (titre, texte, ton = "bleu") => `
+    <article class="h-full rounded-md border p-4 ${tons[ton]}">
+      <h3 class="mb-2 text-xl">${titre}</h3>
+      <p>${texte}</p>
+    </article>`;
+-->
+</body>
+</html>

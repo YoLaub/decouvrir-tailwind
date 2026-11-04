@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manche 1 · correction Tailwind</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
+</head>
+<body>
+<nav class="bg-gray-100">
+  <div class="container mx-auto flex flex-col px-4 py-2 md:flex-row md:items-center">
+    <a class="py-2 text-xl text-gray-900" href="#">Agence</a>
+    <ul class="flex flex-col md:ml-auto md:flex-row md:gap-2">
+      <li><a class="block px-2 py-2 text-gray-600 hover:text-gray-900" href="#">Accueil</a></li>
+      <li><a class="block px-2 py-2 text-gray-600 hover:text-gray-900" href="#">Services</a></li>
+      <li><a class="block px-2 py-2 text-gray-600 hover:text-gray-900" href="#">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="container mx-auto px-4 py-12 text-center">
+  <h1 class="text-5xl font-light">Des sites qui vous ressemblent</h1>
+  <p class="mt-4 text-xl font-light">Conception, développement, accompagnement.</p>
+  <a class="mt-6 inline-block rounded-lg bg-blue-600 px-6 py-3 text-xl text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300" href="#">Parlons de votre projet</a>
+</header>
+
+<form class="container mx-auto px-4 py-12">
+  <div class="mb-4">
+    <label class="mb-2 block" for="nom">Nom</label>
+    <input class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-300" id="nom">
+  </div>
+  <div class="mb-4">
+    <label class="mb-2 block" for="email">Email</label>
+    <input class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-300" id="email" type="email">
+  </div>
+  <div class="mb-4">
+    <label class="mb-2 block" for="message">Message</label>
+    <textarea class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-300" id="message" rows="4"></textarea>
+  </div>
+  <button class="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">Envoyer</button>
+</form>
+</body>
+</html>
